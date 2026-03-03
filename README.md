@@ -43,3 +43,14 @@ En cuanto a los mensajes, aunque ambos como Get y Set, SNMPv3 tiene una mayor pr
 
 Un OID es como el identificador único de una variable dentro de la MIB. La MIB es básicamente una base de datos donde están organizados todos los datos que se pueden consultar en un dispositivo de red.
 Si el administrador quiere saber cuántos bytes ha recibido una interfaz, debe usar la operación Get, porque solo necesita consultar la información. No sería correcto usar un Trap, ya que el Trap es una notificación automática que se envía cuando ocurre un evento, no sirve para pedir datos específicos en ese momento.
+
+
+# Punto 2
+## Escenario
+Imagine que abres el archivo de captura y filtra por “http”. Encuentras el siguiente paquete con estos datos (versión simplificada de una trama Ethernet con un segmento TCP):
+
+<img width="321" height="64" alt="image" src="https://github.com/user-attachments/assets/acd6c5cd-0bbf-4c7c-bcab-969b393d876a" />
+
+## a) Identificar y explicar cada uno de los campos de la cabecera Ethernet. ¿Qué significa el valor 0x0800 en el campo "Tipo"?
+
+
