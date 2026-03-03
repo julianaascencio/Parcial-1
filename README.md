@@ -26,5 +26,12 @@ Aunque la latencia alta también afecta (porque genera retraso en la conversaci�
 
 ## b) Una aplicación envía datos usando protocolo TCP, mientras que otra usa UDP para la misma tarea de transmisión de video. ¿Cuál es más eficiente en términos de throughput y cuál ofrece mayor control de la pérdida de paquetes? Justifique su respuesta basándote en la "anatomía" de sus cabeceras.
 
-UDP es mas eficiente en throughput ya que no depende de una confirmació, no retransmite paquetes y tiene una menor sobrecarga en la cabecera.
-teniendo en cuenta esta eficiencia, se hace uso de este protocolo en streaming o videollamadas; mientras que TCP ofrece un mayor control en perdida de paquetes porque en su cabecera incluye numero de secuencia, ACK o confirmación, tiene control de flujo y de congestión, si se pierde un paquete TCP lo reenvia mientra que UDP hace caso omiso
+UDP es más eficiente en throughput porque no depende de confirmaciones (ACK), no retransmite paquetes y tiene menor sobrecarga en su cabecera. Por esta razón se usa en streaming y videollamadas, donde es más importante la velocidad que la entrega perfecta de los datos. En cambio, TCP ofrece mayor control de pérdida de paquetes porque incluye número de secuencia, confirmaciones, control de flujo y de congestión; si un paquete se pierde lo retransmite, mientras que UDP no verifica ni reenvía los datos perdidos.
+
+## c) Al ejecutar el comando “arp-a” en la CMD de Windows, se obtienen una lista de direcciones IP y direcciones físicas. ¿Qué protocolo de la suite TCP/IP llena esta tabla y cuál es su función principal dentro de una red local? Relacionar la respuesta con la estructura de una trama Ethernet.
+
+Al ejecutar el comando arp -a se muestra una tabla que es llenada por el protocolo ARP, cuya función es relacionar una dirección IP con una dirección física (MAC) dentro de una red local. Básicamente, cuando un equipo quiere enviar datos a otra IP en la misma red, utiliza ARP para preguntar cuál es su dirección MAC y así poder establecer la comunicación.
+
+![arp -a](https://github.com/user-attachments/assets/26429c36-0a75-4bae-987c-2372410e1f77)
+
+
