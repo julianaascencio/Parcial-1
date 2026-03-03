@@ -13,3 +13,13 @@ Eres un analista de red y debes investigar el comportamiento de la red de una of
 Es el tiempo que tarda un paquete de datos en ir desde el origen hasta el destino. Se mide en milisegundos (ms).
 ### Jitter:
 Es la variación en el tiempo de llegada de los paquetes.
+
+### ¿Cuál afecta más una llamada VoIP y por qué?
+El jitter afecta más negativamente a una llamada VoIP. Porque en una llamada de voz los paquetes deben llegar en orden y con tiempos constantes.
+
+Si hay mucho jitter: 
+- La voz se escucha entrecortada.
+- Se pierden partes de la conversación.
+- Hay distorsión o retrasos irregulares.
+  
+Aunque la latencia alta también afecta (porque genera retraso en la conversación), el jitter provoca una experiencia más inestable y molesta.
