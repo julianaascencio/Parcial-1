@@ -35,4 +35,11 @@ Al ejecutar el comando arp -a se muestra una tabla que es llenada por el protoco
 ![arp -a](https://github.com/user-attachments/assets/26429c36-0a75-4bae-987c-2372410e1f77)
 
 ## c) Mencionar dos diferencias clave entre las arquitecturas SNMPv2c y SNMPv3. Enfocarse en los aspectos de seguridad y el tipo de mensajes que manejan.
-Dos diferencias claves entre SNMPv2c y SNMPv3 son la seguridad y el manejo de los mensajes, es decir, SNMPv2c hace uso de un sistema de seguridad muy basico donde hace uso de contraseñas sin cifrado
+
+Dos diferencias claves entre SNMPv2c y SNMPv3 son la seguridad y el manejo de los mensajes, es decir, SNMPv2c hace uso de un sistema de seguridad muy basico donde hace uso de contraseñas sin cifrado, por lo que lo hace menos seguro, mientras que SNMPv3 hace uso de la autentificación, cifrado y control de acceso.
+En cuanto a los mensajes, aunque ambos como Get y Set, SNMPv3 tiene una mayor protección de los mensajes transmitidos para evitar intercepciones o modificaciones.
+
+## d) Define qué es un OID y cuál es su relación con la MIB. Si un administrador quiere saber la cantidad de bytes que ha recibido una interfaz de red, ¿qué operación SNMP (Get, Set, Trap) debe utilizar y por qué no sería adecuado usar un Trap para esto?
+
+Un OID es como el identificador único de una variable dentro de la MIB. La MIB es básicamente una base de datos donde están organizados todos los datos que se pueden consultar en un dispositivo de red.
+Si el administrador quiere saber cuántos bytes ha recibido una interfaz, debe usar la operación Get, porque solo necesita consultar la información. No sería correcto usar un Trap, ya que el Trap es una notificación automática que se envía cuando ocurre un evento, no sirve para pedir datos específicos en ese momento.
