@@ -23,3 +23,8 @@ Si hay mucho jitter:
 - Hay distorsión o retrasos irregulares.
   
 Aunque la latencia alta también afecta (porque genera retraso en la conversación), el jitter provoca una experiencia más inestable y molesta.
+
+## b) Una aplicación envía datos usando protocolo TCP, mientras que otra usa UDP para la misma tarea de transmisión de video. ¿Cuál es más eficiente en términos de throughput y cuál ofrece mayor control de la pérdida de paquetes? Justifique su respuesta basándote en la "anatomía" de sus cabeceras.
+
+UDP es mas eficiente en throughput ya que no depende de una confirmació, no retransmite paquetes y tiene una menor sobrecarga en la cabecera.
+teniendo en cuenta esta eficiencia, se hace uso de este protocolo en streaming o videollamadas; mientras que TCP ofrece un mayor control en perdida de paquetes porque en su cabecera incluye numero de secuencia, ACK o confirmación, tiene control de flujo y de congestión, si se pierde un paquete TCP lo reenvia mientra que UDP hace caso omiso
