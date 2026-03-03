@@ -53,4 +53,6 @@ Imagine que abres el archivo de captura y filtra por “http”. Encuentras el s
 
 ## a) Identificar y explicar cada uno de los campos de la cabecera Ethernet. ¿Qué significa el valor 0x0800 en el campo "Tipo"?
 
+En la cabecera Ethernet aparecen varios campos importantes. Primero está la dirección MAC de destino, que en este caso es aa:bb:cc:dd:ee:ff, y sirve para indicar a qué dispositivo va dirigida la trama dentro de la red local. Luego está la dirección MAC de origen, que es 00:11:22:33:44:55, y muestra quién envía la información.
+Después está el campo Tipo, que en este caso es 0x0800. Este valor significa que el protocolo encapsulado dentro de la trama es IPv4. Es decir, le indica al equipo que los datos que vienen después deben interpretarse como un paquete IPv4.
 
