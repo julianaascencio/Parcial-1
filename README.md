@@ -224,7 +224,57 @@ Si falla la resolución, esta el comando para diagnosticar manualmente
   - ¿Coómo afecta a git push?
       - puede hacer que la conexion se sienta lenta, aumenta el tiempo de envio.
       - si la latencia/jitter es muy alta, puede haber timeouts, retransmisiones TCP y el push puede tardar mucho o fallar.
-    
+
+## Paso 2- Establecimiento de la conexión para el push (Git por HTTP/HTTPS)
+### 1. ¿Qué protocolo de transporte abre conexión fiable?¿Qué mecanismo usa? Explicar "three-way hanshake"
+- El protocolo de tranporte TCP es confiable.
+- Mecanismo Three-way handshake:
+   1. Cliente: servicodr: SYN (quiere iniciar conexión)
+   2. Servidor: Cliente: SYN-ACK (Acepto y confirmo)
+   3. Cliente: Servidor: ACK (Confirmo y queda establecida la conexión)
+
+### 2. Ver segmentos TCP en tiempo real: herraienta y filtro (si ya se conoce la IP de GitHub)
+Primero obtenemos la ip de GitHub desde el CMD o Powershell con el siguiente comando, tal y como se menciono anteriormente.
+
+```bash
+nslookup github.com
+```
+y en pantalla se vera la siguiente información
+
+<img width="253" height="102" alt="image" src="https://github.com/user-attachments/assets/53811ea7-9007-4235-a7a9-cacf0fad092b" />
+
+Procedemos abrir wireshark y elegir la interfaz correcta
+En este caso la conexión es de WIFI, es decir, que seleccionamos esta opción para ver el trafico de datos.
+
+<img width="553" height="431" alt="image" src="https://github.com/user-attachments/assets/d5633259-c5ff-4c5c-beef-95cb522ab29d" />
+
+En el CMD realizamos ping a GitHub.com desde CMD y mientras este se ejecuta vemos el trafico de paquetes en Wireshark y filtramos con "ip.addr == 140.82.114.3 and tcp" y asi podemos observar lo siguiente:
+
+<img width="956" height="500" alt="image" src="https://github.com/user-attachments/assets/eae5ae49-24df-43e9-91f4-5cea65747f0d" />
+
+Con este filtro se esta mostrando solo el trafico HTTPS mediante el puerto 443 y el CMD podemos observar:
+- latencia minima: 87ms
+- macima: 122ms
+- promedio: ~100ms
+
+Ahora si ejecutamos el filtro sin el TCP podremos observar los paquetes ICMP
+
+<img width="1012" height="737" alt="image" src="https://github.com/user-attachments/assets/f927f507-22cb-43de-90ec-1f5b04fc8b3c" />
+
+Esto nos permite visualizar todo el trafico entre el equipo y els ervidor de GitHub.
+En esta captura se observa la columan "Protocol" donde aparece ICMP y en la info muestra
+
+Echo (ping) request
+Echo (ping) reply
+
+Y esto corresponde a los paquetes generados por el comando ping github.com
+
+Tu PC (172.20.10.2)  →  GitHub (140.82.114.3)   ICMP Echo Request
+GitHub (140.82.114.3) → Tu PC (172.20.10.2)     ICMP Echo Reply
+
+Esto confirma que existe conectividad entre el equipo local y los servidores de Github.com
+
+
   
 
 
