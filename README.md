@@ -217,7 +217,14 @@ Si falla la resolución, esta el comando para diagnosticar manualmente
   nslookup github.com
   ```
   Tambien puede servir ipconfig /fludhdns para limpiar caché DNS si se sospecha de problema local.
-  
+
+  ### 3.Ping exitoso pero con latencia alta y variable: ¿qué métrica está afectada y cómo influye en git
+  push?
+  - Métrica afectada: Jitter (variación de la latencia) y tambien latencia alta.
+  - ¿Coómo afecta a git push?
+      - puede hacer que la conexion se sienta lenta, aumenta el tiempo de envio.
+      - si la latencia/jitter es muy alta, puede haber timeouts, retransmisiones TCP y el push puede tardar mucho o fallar.
+    
   
 
 
