@@ -191,6 +191,33 @@ Estructurar la respuesta siguiendo la secuencia lógica de eventos
 <img width="452" height="223" alt="image" src="https://github.com/user-attachments/assets/e0681ced-c5e8-47fe-a130-f09aaa0a92d0" />
 <img width="419" height="214" alt="image" src="https://github.com/user-attachments/assets/72411c38-7c27-478a-902c-e20babb08a6e" />
 
+# Respuesta
+## Paso 1- Verificación de conectividad básica y resolución de nombres
+### 1.¿Qué comando usaría para verificar conectividad IP con GitHub? ¿Qué capa OSI verifica y qué protocolo usa?
+
+comando
+```bash
+ping github.com
+```
+- Capa OSI principalmente: capa 3 (red) porque verifica que se puede llegar por la IP al destino (aunque se apoya en capa 2 en la LAN)
+- Protocolo que usa: ICMP
+
+### 2.¿Cómo obtiene su equipo la IP de github.com? Proceso, protocolo, capa OSI y comando si falla.
+* El pc obtiene IP usando DNS:
+ - El pc pregunta "¿Qué IP tiene github.com?"
+ - El resolver DNS (normalmente el del router o ISP) responde con la IP
+
+* Protocolo: DNS (usa típicamente UDP 53, a veces TCP 53 si la respuesta es grande o para ciertas operaciones)
+
+* Capa OSI: Capa 7 (Aplicación) (DNS es un servicio de aplicación)
+* Si falla la resolución, esta el comando para diagnosticar manualmente
+
+  ```bash
+  nslookup github.com
+  ```
+  Tambien puede servir ipconfig /fludhdns para limpiar caché DNS si se sospecha de problema local.
+  
+
 
 
 
