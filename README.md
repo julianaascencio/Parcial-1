@@ -203,19 +203,21 @@ ping github.com
 - Protocolo que usa: ICMP
 
 ### 2.¿Cómo obtiene su equipo la IP de github.com? Proceso, protocolo, capa OSI y comando si falla.
-* El pc obtiene IP usando DNS:
+El pc obtiene IP usando DNS:
  - El pc pregunta "¿Qué IP tiene github.com?"
  - El resolver DNS (normalmente el del router o ISP) responde con la IP
 
-* Protocolo: DNS (usa típicamente UDP 53, a veces TCP 53 si la respuesta es grande o para ciertas operaciones)
+Protocolo: DNS (usa típicamente UDP 53, a veces TCP 53 si la respuesta es grande o para ciertas operaciones)
 
-* Capa OSI: Capa 7 (Aplicación) (DNS es un servicio de aplicación)
-* Si falla la resolución, esta el comando para diagnosticar manualmente
+Capa OSI: Capa 7 (Aplicación) (DNS es un servicio de aplicación)
+
+Si falla la resolución, esta el comando para diagnosticar manualmente
 
   ```bash
   nslookup github.com
   ```
   Tambien puede servir ipconfig /fludhdns para limpiar caché DNS si se sospecha de problema local.
+  
   
 
 
