@@ -264,13 +264,13 @@ Ahora si ejecutamos el filtro sin el TCP podremos observar los paquetes ICMP
 Esto nos permite visualizar todo el trafico entre el equipo y els ervidor de GitHub.
 En esta captura se observa la columan "Protocol" donde aparece ICMP y en la info muestra
 
-Echo (ping) request
-Echo (ping) reply
+- Echo (ping) request
+- Echo (ping) reply
 
 Y esto corresponde a los paquetes generados por el comando ping github.com
 
-Tu PC (172.20.10.2)  →  GitHub (140.82.114.3)   ICMP Echo Request
-GitHub (140.82.114.3) → Tu PC (172.20.10.2)     ICMP Echo Reply
+- Tu PC (172.20.10.2)  →  GitHub (140.82.114.3)   ICMP Echo Request
+- GitHub (140.82.114.3) → Tu PC (172.20.10.2)     ICMP Echo Reply
 
 Esto confirma que existe conectividad entre el equipo local y los servidores de Github.com
 
