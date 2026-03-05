@@ -316,9 +316,30 @@ Se activan las retransmisiones por falta de ACK y reduce la ventana (congestion 
    -pathping github.com o pathping <IP_GITHUB> : ya que muestran la perdida por salto, es mejor que tracert para tener el punto de perdida mas claro, aunque tracert muestra la ruta, este cuantifica perdida como pathping.
 
 ### 3.En la cabecera IP, ¿qué campo evita que el paquete dé vueltas indefinidamente? Explicar
+Campo: TTL (Time To Live) en IPv4 (IPv6 se llama Hop Limit).
+Cada router reenvía el paquete reduce el TTL en 1, si este llega a 0, el paquete se descarta y se envía un IVMP "Time Exceeded"; El beneficio de esto es que vita bucles infiniros en caso de rutas mal configuradas.
 
+## Paso 4- Confirmación y fin de la comunicación
+### 1. ¿Qué mensaje TCP confirma recepción correcta? Relación con pérdida de paquetes y fiabilidadTCP confirma con ACK, si los ACK no llegan, TCP asume posible perdida y retransmite, por eso TCP es fiable asegurando la entrega usando ACK + retransmisiones + control de flujo o congestión.
+
+### 2. ¿Cómo se cierra ordenadamente una conexión TCP?
+Cierre típico en 4 pasos (FIN/ACK)
+1. Cliente → Servidor: FIN
+2. Servidor → Cliente: ACK
+3. Servidor → Cliente: FIN
+4. Cliente → Servidor: ACK
+Así se asegura que ambos lados terminan de enviar datos antes de cerrar.
+
+### 3. Monitorear el tráfico del push con SNMP: métricas y versión si se requiere cifrado
+Métrica típicas en interfaces del router (MIB de interfaces):
+- Bytes transmitidos/recibidos
+- Paquetes recibidos/enviados
+- Errores
+- Paquetes descartados
+- Estado de la interfacez
   
-
+¿Qué versión SNMP usar si se necesita cifrado?
+SNMPv3, porque soporta autenticación y cifrado (a diferencia de v2c que usa comunidad en texto plano).
 
 
 
