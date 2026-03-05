@@ -56,3 +56,87 @@ Imagine que abres el archivo de captura y filtra por “http”. Encuentras el s
 En la cabecera Ethernet aparecen varios campos importantes. Primero está la dirección MAC de destino, que en este caso es aa:bb:cc:dd:ee:ff, y sirve para indicar a qué dispositivo va dirigida la trama dentro de la red local. Luego está la dirección MAC de origen, que es 00:11:22:33:44:55, y muestra quién envía la información.
 Después está el campo Tipo, que en este caso es 0x0800. Este valor significa que el protocolo encapsulado dentro de la trama es IPv4. Es decir, le indica al equipo que los datos que vienen después deben interpretarse como un paquete IPv4.
 
+## b) En la cabecera IPv4, ¿qué significan los campos Protocolo y TTL? ¿Por qué es importante el TTL en red?
+
+### Protocolo
+Este campo indica que el protocolo de la capa de transporte está contenido dentro del paquete IP, es decir, le dice al sistema operativo a qué protocolo debe entregar los datos cuando el paquete llega sin destino.
+### TTL
+Este campo indica la cantidad maxima de saltos (routers) que un paquete puede atravesar en la red antes de ser descartado, es decir, cada vez que el paquete pasa por un router, el valor del TTL se redice en 1, cuando el paquete llega a 0, el paquete se elimina y normalmente el router envia un mensaje ICMP Time Esceeded al origen.
+
+### Importancia del TTL en la red
+El TTL es importante porque evita que los paquetes circulen indefinidamente en la red en caso de que exista un bucle de enrutamiento, si no existiera este campo, un paquete podría quedarse viajando eternamente entre routers, generando congestión y consumo innecesario de ancho de banda.
+
+## c)En la cabecera TCP, explicar la función de los flags ACK y PSH. ¿Qué indica el “Puerto Destino: 80” sobre el servicio que intenta acceder?
+
+### 1. Flag ACK (Acknowledgment)
+Este Flag o bandera indica que el paquete está confirmando la recepción de datos anteriores enviados por otros dispositivos. Caundo este está activo, significa que el campo Acknowledgment Number es válido y que el receptor está infromando que recibió correctamente los datos hasta cierto número de secuencia.
+
+### 2. Flag PSH (Push)
+Este indica que los datos del segmento deben enviarse inmediatamente a la aplicación, sin esperar que el buffer se llene. Esto se usa cuando los datos deben ser procesados rápidamente por la aplicación en el destino.
+
+### "Puerto Destino: 80"
+el puerto destino 80 indica el servicio al que se está intentando acceder en el servidor. Este puerto esta asociado al protocolo HTTP, que s eusa para la comunicación entre navegadores y servidor web.
+
+## d)Sie este mismo paquete se enviara usando IPv6, ¿qué cabecera de IPv6 reemplazaría a la cabecera IPv4 mostrada y cúal seria ina mejora notable en su procesamiento por parte d elos routers?
+
+Si el paquete se enviara usando IPv6, la cabecera IPv4 seria reemplazada por la cabecera de IPv6
+Una mejora importante de IPv6 es que su cabecera es más simple y de tamaño fijo de 40 bytes, mientras que la de IPv4 puede variar de tamaño debido a los campos opcionales.
+
+Gracias a la simplidad de la estructura, los routers pueden procesar los paquetes más rápido, se reduce la carga de procesamiento en los dispositivos de red y las opciones adicionales se manejan mediante extensiones, lo que evita que todos los routers tengan que analizarlas.
+
+
+# Punto 3
+## Diagnostico y gestión con herramientas de windows
+
+## a) Ejecutar el siguiente comando y explicar:
+### 1. ¿Qué información proporciona este comando que dariá un "ping" o un "tracert"?
+### 2. Describir el proceso que sigue "pathping" para obtener sus resultados.
+
+```bash
+pathping 8.8.8.8
+```
+
+Al ejecutar el comando en mi CMD arroja la siguiente información
+
+<img width="464" height="296" alt="image" src="https://github.com/user-attachments/assets/3bff2e7a-78e1-4911-aedf-38393000faf4" />
+
+Se obtiene información sobre la ruta que siguen lso paquetes desde el equipo local hasta el servidor de Google y permite analizar la calidad de la conexion.
+En el resultado obtenido se observan los siguientes saltos
+
+### Salto 0- Equipo de Juli [172.22.51.220]
+Corresponde al equipo local desde donde se ejecuta el comando. Esta dirección IP asignada al computador dentro de la red.
+
+### Salto 1-172.22.51.1
+Este es el getway o router de la red local; Se observa un RTT de 5ms, lo que indica un tiempo de respuesta muy bajo, normal dentro de una red local. Además, se muestra 0% de perdida de paquetes (0/100), lo que indica que la comunicación con el router funciona correctamente.
+
+### Salto 2 -10.0.0.1
+Este sería el siguiente router en la red, posiblemente parte de la red interna del proveedor o sistema de salida a internet
+
+En el resultado aparece:
+- RTT ---
+- 100/100 = 100% de pérdida desde el origen
+Esto significa que ese dispositivo no responde a las solicitudes ICMP, algo bastante común porque muchos routers bloquean este tipo de mensjaes por seguridad.
+No necesariamente significa que la red este fallando.
+
+### 1. ¿Qué información proporciona este comando que dariá un "ping" o un "tracert"?
+El comando combina funciones de ping y de tracert, por lo que proporciona más infirmacion para el diagnostico de red.
+Por un lado, como tracert, muestra la ruta que siguen los paquetes desde el equipo origen hasta el destino, indicando cada uno de los saltos por los que pasa la comunicación.
+Por otro lado, como ping, permite medir el tiempo de respuesta (RTT) entre los dispositivos.
+
+### 2. Describir el proceso que sigue pathping para obtener sus resultados
+El comango pathping obtiene sus resultados en dos etapas principales.
+
+### Primera etapa: descubrimiento de la ruta
+Primero, el comando funciona de forma similar al comando tracert. Envía paquetes ICMP con valores TTL incrementales para identificar cada uno de los routers o saltos entre el equipo origen y el destini. Es de esta forma como se construye la lista completa de nodos por los que pasan los paquetes.
+
+### Segunda etapa: análisis de calidad del enlace
+Después de identificar la ruta, pathping envía múltiples paquetes a cada uno de los routers detectados durante aproximadamente 50 segundos. Con estos paquetes se calcula estadísticas como:
+
+- Tiempo de respuesta
+- Número de paquetes enviados y perdidos
+- Porcentaje de pérdida de paquetes en cada nodo o enlace
+Con esta información se puede determinar en qué punto de la red se esta producioendo pérdida de paquetes o problemas de conexión.
+
+A continuación se muestra la ejecución del comando con resultados positivos 
+
+
