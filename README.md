@@ -167,6 +167,30 @@ Las principales ventajas son:
 
 En cambio, el polling requiere consultar repetidamente al dispositivo para concer su estado, lo que logra generar más consumo de recurso en la red.
 
+# Punto 4
+## Escenario
+### Los estudiantes de compensar son desarrolladores que trabajan en un proyecto en GitHub y precisamente acaban de finalizar una nueva funcionalidad en la maáquina local y proceden a ejecutar los siguientes comandos para subir los al respositorio remoto
+
+```bash
+git add .
+git commit -m "Añade nueva duncionalidad"
+git push origin main
+```
+Sin embargo antes de ejecutar el "git push", se decide verificar que todo está en orden con la conectividad a internet y con el servidor de Git Hub.
+## a) Realizar un análisis paso a paso del proceso completo, desde que se escribe el primer comando de verificación hasta que GitHub confirma la recepción de los cambios.
+Para cada paso, usted deberá:
+
+### - 1. Identificar la capa del modelo Osi involucrada principalmente en esa acción
+### - 2. Mencionar los protocolos y estructuras de datos (tramas, paquetes, segmentos) que intervienen.
+### - 3. Indicar qué comando (s) de red (de CMD de windows o herramientes como "ping", tracert, nslookup, netstat, pathping o incluso filtros de wireshark") podrian utilizar para verificar o diagnosticar problemas en ese paso especifico.
+### - 4. Relacionar los conceptos de teletrafico (latencia, pérdida de paquetes, throughput) con el éxito o fracaso de la operación
+
+Estructurar la respuesta siguiendo la secuencia lógica de eventos 
+<img width="416" height="164" alt="image" src="https://github.com/user-attachments/assets/8b787516-abfe-4626-945c-76cf96a60da9" />
+<img width="449" height="203" alt="image" src="https://github.com/user-attachments/assets/94b546a9-532b-47b7-9f47-43327787ec18" />
+<img width="452" height="223" alt="image" src="https://github.com/user-attachments/assets/e0681ced-c5e8-47fe-a130-f09aaa0a92d0" />
+<img width="419" height="214" alt="image" src="https://github.com/user-attachments/assets/72411c38-7c27-478a-902c-e20babb08a6e" />
+
 
 
 
