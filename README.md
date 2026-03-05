@@ -77,7 +77,7 @@ Este indica que los datos del segmento deben enviarse inmediatamente a la aplica
 ### "Puerto Destino: 80"
 el puerto destino 80 indica el servicio al que se está intentando acceder en el servidor. Este puerto esta asociado al protocolo HTTP, que s eusa para la comunicación entre navegadores y servidor web.
 
-## d)Sie este mismo paquete se enviara usando IPv6, ¿qué cabecera de IPv6 reemplazaría a la cabecera IPv4 mostrada y cúal seria ina mejora notable en su procesamiento por parte d elos routers?
+## d)Si este mismo paquete se enviara usando IPv6, ¿qué cabecera de IPv6 reemplazaría a la cabecera IPv4 mostrada y cúal seria ina mejora notable en su procesamiento por parte d elos routers?
 
 Si el paquete se enviara usando IPv6, la cabecera IPv4 seria reemplazada por la cabecera de IPv6
 Una mejora importante de IPv6 es que su cabecera es más simple y de tamaño fijo de 40 bytes, mientras que la de IPv4 puede variar de tamaño debido a los campos opcionales.
@@ -138,5 +138,36 @@ Después de identificar la ruta, pathping envía múltiples paquetes a cada uno 
 Con esta información se puede determinar en qué punto de la red se esta producioendo pérdida de paquetes o problemas de conexión.
 
 A continuación se muestra la ejecución del comando con resultados positivos 
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/56026409-aba8-4f7a-bc16-b9eb3ce5df55" />
+
+## b) Escenario - Para monitorear un rputer de la oficina, decides usar SNMP. El router soporta SNMPv2c con la comunidad "public" de solo lectura.
+
+### ¿Qué comando de windows (o herramienta de linea de comandos) podria utilizar para "caminar" por el árbol MIB y obtener todos los valores de la interfaz del router en la IP 192.168.1.1?
+Para recorrer el árbol MIB y obtener los valores de la interfaz del router se puede utilizar la herramienta snmpwalk, aunque este no viene instalado en la linea de comandos de windows, se puede instalar y hacer uso del siguiente comando.
+
+```bash
+snpmwalk -v2c -c public 192.168.1.1
+```
+
+Donde:
+- -v2c: indica que se usa la versión SNMPv2c
+-  -c public: comunicad SNMP configurada en el router con permiso de lectura
+-  192.168.1.1: dirección IP del router
+
+Este comando permite recorrer el árbol MIB y mostrar todos los objetos disponibles, como información de interfaces, trafico, estado de puertos y estadísticas del router.
+
+### Si el router envia un mensjae "authenticationFailure" trap al gestor SNP, ¿Qué evento lo ha provocado y cúal es la ventaja de recibir un Trap en lugar de estar consultando constantemente (polling) el estado del router?
+La ventaja de los SNMP traps es que el dispositivo envía automaticamente una notificación cuando ocurre un evento, sin necesidad de que el gesto SNMP esté consultando constantemente.
+
+Las principales ventajas son:
+- Menor tráfico de red, porque no se realizan consultas periódicas.
+- Respuesta más rapida ante eventos, ya que la alerta se envia inmediatamente
+- Menos carga en el router y en el servidor de monitoreo.
+
+En cambio, el polling requiere consultar repetidamente al dispositivo para concer su estado, lo que logra generar más consumo de recurso en la red.
+
+
+
 
 
