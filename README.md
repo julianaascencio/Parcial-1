@@ -341,6 +341,8 @@ Métrica típicas en interfaces del router (MIB de interfaces):
 ¿Qué versión SNMP usar si se necesita cifrado?
 SNMPv3, porque soporta autenticación y cifrado (a diferencia de v2c que usa comunidad en texto plano).
 
+# Conclusión
 
+Este proyecto permitió comprender los fundamentos de las redes de datos y cómo se comunican los dispositivos a través de diferentes protocolos y capas del modelo OSI. A través del análisis práctico con herramientas como Wireshark, ping y nslookup, se pudo observar el funcionamiento real de la comunicación en red, desde la resolución de nombres hasta la transmisión de paquetes. Estos conceptos son esenciales para entender el funcionamiento de Internet y constituyen la base para el estudio y la implementación de redes más avanzadas.
 
 
