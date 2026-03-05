@@ -186,9 +186,13 @@ Para cada paso, usted deberá:
 ### - 4. Relacionar los conceptos de teletrafico (latencia, pérdida de paquetes, throughput) con el éxito o fracaso de la operación
 
 Estructurar la respuesta siguiendo la secuencia lógica de eventos 
+
 <img width="416" height="164" alt="image" src="https://github.com/user-attachments/assets/8b787516-abfe-4626-945c-76cf96a60da9" />
+
 <img width="449" height="203" alt="image" src="https://github.com/user-attachments/assets/94b546a9-532b-47b7-9f47-43327787ec18" />
+
 <img width="452" height="223" alt="image" src="https://github.com/user-attachments/assets/e0681ced-c5e8-47fe-a130-f09aaa0a92d0" />
+
 <img width="419" height="214" alt="image" src="https://github.com/user-attachments/assets/72411c38-7c27-478a-902c-e20babb08a6e" />
 
 # Respuesta
@@ -274,6 +278,44 @@ Y esto corresponde a los paquetes generados por el comando ping github.com
 
 Esto confirma que existe conectividad entre el equipo local y los servidores de Github.com
 
+### 3. Puertos de origen y destino
+En la cabecera tcp se observan dos puertos
+
+1. puerto destino : 433 , este puerto corresponde al protocolo HTTPS, utilizado por Git para comunicarse con GitHub.
+2. Puerto de origen; Este es un puerto efimero o dinamico, asignado temporalmente por el sistema operativo del cliente
+   ejemplo: 64867 → 443
+
+### Capa del modelo OSI
+Los puertos TCP son gestionados por la Capa 4 (Transporte)
+
+## Paso 3-Encapsulamiento y enrutamiento de los datos
+### 1. Encapsulamiento desde Git hasta trama Ethernet + PDU por capa
+Proceso:
+
+1. Aplicación (GIT/HTTP/HTTPS): Genera los datos que se enviarán (contenido del push).
+2. Transporte (TCP): Divide/organiza datos en segmentos, agrega puertos, números de secuencia, ACK, etc.
+3. Enlace (Ethernet/WI.FI): Encasula en tramas, agrega MAC origen/destino y FCS.
+4. Fisica: Se transmite como bits por el medio.
+
+Nombre de la PDU por capa:
+- Capa 7 (Aplicación): datos, por ejemplo "HTTP payload" / "datos de aplicación".
+- Capa 4 (Transporte): Segmento TCP.
+- Capa 3 (RED): Paquete IP
+- Capa 2 (Enlace): Trama Ethernet.
+- Capa 1 (Física): Bits.
+
+### 2.Router congestionado y descarta paquetes: ¿cómo afecta git push, qué mecanismo TCP se activa, y qué comando identifica el salto con pérdida?
+
+- ¿Cómo afecta al git push?
+Se generan pérdida de paquetes, entonces TCP debe retransmitir, incluso el push tarda má o incluso puede fallar por timeouts.
+
+- ¿Qué mecanismo TCP se activa?
+Se activan las retransmisiones por falta de ACK y reduce la ventana (congestion de windosw), puede antrar en slow start o ajustar su tasa.
+
+- ¿Qué comando ayudaa identificar en qué salto se pierden paquetes?
+   -pathping github.com o pathping <IP_GITHUB> : ya que muestran la perdida por salto, es mejor que tracert para tener el punto de perdida mas claro, aunque tracert muestra la ruta, este cuantifica perdida como pathping.
+
+### 3.En la cabecera IP, ¿qué campo evita que el paquete dé vueltas indefinidamente? Explicar
 
   
 
